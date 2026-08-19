@@ -1,48 +1,72 @@
-# Pocket CFD — legal pages
+# Legal pages
 
-The public pages Google Play and Apple require. Publishing this folder with GitHub Pages
-gives you the three URLs the stores ask for.
-
-## Publish
-
-1. Create a **new public repository** on GitHub, e.g. `pocket-cfd-legal`.
-   Public matters: GitHub Pages on a private repo needs a paid plan, and these pages have
-   to be readable without a login anyway.
-2. Upload every file in this folder to the repository root.
-3. Repo → **Settings → Pages** → Source: **Deploy from a branch**, Branch: **main**,
-   folder: **/ (root)** → Save.
-4. Wait a minute or two. Your URLs are:
+The public pages Google Play and Apple require, kept next to the code that they describe.
 
 ```
-https://<username>.github.io/pocket-cfd-legal/
-https://<username>.github.io/pocket-cfd-legal/privacy.html
-https://<username>.github.io/pocket-cfd-legal/terms.html
+docs/
+├── privacy-policy.md        ← edit this
+├── terms-and-conditions.md  ← and this
+├── build.py                 ← then run this
+├── privacy.html             ← generated
+├── terms.html               ← generated
+├── index.html               ← landing / support page, edit by hand
+└── .nojekyll                ← stops GitHub trying to run Jekyll
 ```
 
-## Fill in the placeholders first
+## 1. Fill in the placeholders
 
-Anything still reading `[LIKE THIS]` is highlighted in red on the page, so it is obvious
-if you miss one. Edit `../privacy-policy.md` and `../terms-and-conditions.md`, then:
+Anything reading `[LIKE THIS]` renders **highlighted in red** on the published page, so an
+unfilled one is impossible to miss. Edit the two `.md` files — your name, email, city, the
+date and the privacy policy URL — then:
 
-```
+```bash
+cd docs
 python3 build.py
 ```
 
-That regenerates `privacy.html` and `terms.html`. Also edit `index.html` by hand — the
-support email, the copyright line and the Play link.
+Edit `index.html` by hand too: support email, copyright line, and the Play link once you
+have one.
 
-## Where the URLs go
+## 2. Publish
+
+**This only works if the repository is public.** GitHub Pages will not serve a private
+repository on the free plan.
+
+### If this repo is public
+
+Settings → **Pages** → Source: **Deploy from a branch** → Branch **main**, folder
+**/docs** → Save.
+
+```
+https://<username>.github.io/<repo>/
+https://<username>.github.io/<repo>/privacy.html
+https://<username>.github.io/<repo>/terms.html
+```
+
+### If this repo is private (likely, for a paid app)
+
+Keep editing the markdown here — this stays the source of truth — but publish from a
+separate public repo:
+
+1. Create a public repo, e.g. `pocket-cfd-legal`
+2. Copy the contents of this `docs/` folder into its root
+3. Settings → Pages → branch **main**, folder **/ (root)**
+
+Re-copy the two generated `.html` files whenever you change the text. Two files, thirty
+seconds, and your source stays closed.
+
+## 3. Where the URLs go
 
 | Where | Which URL |
 |---|---|
-| `src/config.js` → `PRIVACY_URL`, `TERMS_URL` | privacy.html, terms.html |
+| `src/config.js` → `PRIVACY_URL` / `TERMS_URL` | privacy.html / terms.html — the About screen opens these |
 | Play Console → Store listing → Privacy policy | privacy.html |
-| Play Console → Store listing → Support (website) | the root URL |
+| Play Console → Store settings → Support → Website | the root URL |
 | App Store Connect → App Privacy → Privacy Policy URL | privacy.html |
-| App Store Connect → Support URL / Marketing URL | the root URL |
+| App Store Connect → Support URL and Marketing URL | the root URL |
 
-## Keep it alive
+## 4. Keep them alive
 
-Both stores expect these to work for as long as the app is listed. Don't delete the repo,
-and if you rename it, update the URLs in Play Console, App Store Connect and
-`src/config.js` — a dead privacy policy link is grounds for removal.
+Both stores expect these URLs to work for as long as the app is listed. Don't delete or
+rename the repo without updating Play Console, App Store Connect and `src/config.js` — a
+dead privacy policy link is grounds for removal.

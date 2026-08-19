@@ -3,14 +3,14 @@
 
   python3 build.py
 
-Reads ../privacy-policy.md and ../terms-and-conditions.md, strips the
+Reads privacy-policy.md and terms-and-conditions.md from this folder, strips the
 "BEFORE YOU PUBLISH" reminder box, and writes privacy.html / terms.html.
 Any remaining [PLACEHOLDER] is highlighted in red so it cannot ship unnoticed.
 """
 import re, sys, pathlib, markdown
 
 HERE = pathlib.Path(__file__).parent
-SRC  = HERE.parent
+SRC  = HERE          # sources live in this folder
 
 CSS = """
 :root{color-scheme:light dark}
