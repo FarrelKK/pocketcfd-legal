@@ -79,7 +79,7 @@ def convert(md_path, title, out_name, footer):
 
 if __name__ == "__main__":
     print("building:")
-    foot = 'Pocket CFD · <a href="mailto:you@example.com">you@example.com</a>'
+    foot = 'Streakline · <a href="mailto:farrelkent@gmail.com">farrelkent@gmail.com</a>'
     convert(SRC/"privacy-policy.md",       "Privacy Policy — Pocket CFD",       "privacy.html", foot)
     convert(SRC/"terms-and-conditions.md", "Terms and Conditions — Pocket CFD", "terms.html",   foot)
     print("done. Commit this folder and enable GitHub Pages.")
